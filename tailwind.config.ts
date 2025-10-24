@@ -5,6 +5,7 @@ const config: Config = {
         "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/app/urls/page.tsx",
     ],
     theme: {
         extend: {
@@ -16,7 +17,5 @@ const config: Config = {
         },
     },
     plugins: [require('daisyui')],
-    darkMode: "class",  // or "media"
-
 };
 export default config;

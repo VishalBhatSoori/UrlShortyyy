@@ -1,5 +1,6 @@
 import shortId from 'shortid';
 import { UrlRepo } from "../repositories/URLRepository";
+
 export class UrlShortnerService {
     private urlRepository;
     constructor() {
@@ -13,10 +14,10 @@ export class UrlShortnerService {
         let shortUrl = shortId();
         url = await this.urlRepository.getUrlByShortUrl(shortUrl);
         while (url) {
-            let shortUrl = shortId();
+            shortUrl = shortId();
             url = await this.urlRepository.getUrlByShortUrl(shortUrl);
         }
-        await this.urlRepository.createUrl(originalUrl, shortUrl);
+        await this.urlRepository.createUrl(originalUrl, `urls/${shortUrl}`);
         return shortUrl;
     }
     async getAllUrl() {
