@@ -3,19 +3,24 @@ import { redirect } from "next/navigation";
 import redis from "@/config/redis";
 
 async function fetchOriginalUrl(url: string) {
-
+    const start = performance.now();
     const cachedUrl = await redis.get(url);
+    const end = performance.now();
+    console.log(`REDIS TIME: ${(end - start).toFixed(2)}ms`);
     if (cachedUrl) {
-        console.log("Hot Path Hit: Redirecting via Redis");
+        console.log("Redirecting via Redis");
         return cachedUrl;
     }
-    console.log("Hot Path Miss: Falling back to MongoDB");
+    console.log("Falling back to MongoDB");
     const urlService = new UrlShortnerService();
     const response = await urlService.getUrlByShortUrl(url);
+    //const end = performance.now();
+    console.log(`MONGO TIME: ${(end - start).toFixed(2)}ms`);
     if(response?.originalUrl){
         await redis.set(url, response.originalUrl, "EX", 604800);
         return response.originalUrl;
     }
+    
     return null;
 }
 

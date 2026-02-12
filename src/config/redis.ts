@@ -19,6 +19,5 @@ const redis = global.redis || getRedisClient();
 if (process.env.NODE_ENV !== 'production') {
   global.redis = redis;
 }
-redis.on("error", (err) => console.log("❌ Redis Error:", err.message));
-redis.on("connect", () => console.log("🚀 Connected to Redis Cloud"));
+
 export default redis;

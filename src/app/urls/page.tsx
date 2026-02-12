@@ -17,7 +17,7 @@ export default async function UrlList() {
   let urls;
   try {
     urls = await fetchUrls();
-    console.log(urls);
+    //console.log(urls);
   } catch (error) {
     console.log(error);
     return (
