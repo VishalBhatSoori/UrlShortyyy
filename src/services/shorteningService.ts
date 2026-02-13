@@ -93,7 +93,7 @@ export class UrlShortnerService {
             const currentCache = await redis.get(CACHE_KEY);
             if (currentCache) {
                 const urls = JSON.parse(currentCache);
-                const updatedUrls = urls.filter((u: any) => u._id !== id);
+                const updatedUrls = urls.filter((u: { _id: string }) => u._id !== id);
                 await redis.set(CACHE_KEY, JSON.stringify(updatedUrls), "EX", 604800);
             }
 

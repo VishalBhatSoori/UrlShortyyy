@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { UrlShortnerService } from "../../../services/shorteningService";
-import redis from "../../../config/redis";
+
 
 const fetchUrls = async () => {
     const shortyServiceInstance = new UrlShortnerService();

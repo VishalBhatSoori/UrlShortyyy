@@ -33,7 +33,7 @@ export default async function UrlList() {
   return (
     <div className="list-container">
       <div className="content-box">
-        <h1 className="title">All Your URL's</h1>
+        <h1 className="title">All Your URLs</h1>
         <Link href="/" className="btn btn-secondary">
           Go to Home Page
         </Link>
