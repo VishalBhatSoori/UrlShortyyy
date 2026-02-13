@@ -108,13 +108,18 @@ html {
     box-shadow: none;
 }
 
-.btn-secondary {
-    background-color: #db2777;
+.btn-secondary,
+.btn-secondary:visited {
+    background-color: #513bf6;
     color: white;
     margin-bottom: 1.5rem;
+    text-decoration: none;
 }
 
-.btn-secondary:hover {
-    background-color: #be185d;
+.btn-secondary:hover,
+.btn-secondary:active {
+    background-color: #2fdc26;
+    color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
 }

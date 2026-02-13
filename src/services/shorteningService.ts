@@ -18,7 +18,7 @@ export class UrlShortnerService {
             shortUrl = shortId();
             url = await this.urlRepository.getUrlByShortUrl(shortUrl);
         }
-        await this.urlRepository.createUrl(originalUrl, shortUrl);
+        await this.urlRepository.createUrl(originalUrl, `urls/${shortUrl}`);
 
         // Immediate Cache Update for Redirection
         await redis.set(`urls/${shortUrl}`, originalUrl, "EX", 604800);
@@ -26,7 +26,7 @@ export class UrlShortnerService {
         // Immediate Cache Update for "View All"
         const CACHE_KEY = "allUrlsList";
 
-        const newUrlRecord = await this.urlRepository.getUrlByShortUrl(shortUrl);
+        const newUrlRecord = await this.urlRepository.getUrlByShortUrl(`urls/${shortUrl}`);
 
         if (newUrlRecord) {
             const currentCache = await redis.get(CACHE_KEY);
@@ -62,7 +62,7 @@ export class UrlShortnerService {
         return urls;
     }
     async getUrlByShortUrl(shortUrl: string) {
-        const CACHE_KEY = `urls/${shortUrl}`;
+        const CACHE_KEY = shortUrl;
 
         const cachedUrl = await redis.get(CACHE_KEY);
         if (cachedUrl) {
