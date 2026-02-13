@@ -16,11 +16,13 @@ export const shortenUrl = async (formData: FormData) => {
     const shortnerService = new UrlShortnerService();
     const shortUrl = await shortnerService.shortenUrl(originalUrl);
 
-    await redis.del("allUrlsList");
-    if (shortUrl) {
-         await redis.set(`urls/${shortUrl}`, originalUrl, "EX", 604800);
+    //Redis update is now handled inside the service
+    /*if (shortUrl) {
+        await redis.set(`urls/${shortUrl}`, originalUrl, "EX", 604800);
     }
+    await shortnerService.getAllUrl();*/
 
+    console.log("Redis list is pre-warmed and ready!");
     revalidatePath('/urls');
 
     redirect('/');

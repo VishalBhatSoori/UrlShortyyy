@@ -3,14 +3,11 @@ import './urllist.css';
 import { deleteUrlAction } from "@/app/serverAction/deleteUrlAction";
 import NextImage from 'next/image';
 
+import { UrlShortnerService } from "@/services/shorteningService";
+
 async function fetchUrls() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/urls`, {
-    cache: 'force-cache',
-  });
-  if (!response.ok) {
-    throw new Error('Failed to fetch urls');
-  }
-  return response.json();
+  const shortnerService = new UrlShortnerService();
+  return await shortnerService.getAllUrl();
 }
 
 export default async function UrlList() {
@@ -49,8 +46,8 @@ export default async function UrlList() {
               </tr>
             </thead>
             <tbody>
-              {urls.urls && Array.isArray(urls?.urls) &&
-                urls.urls.map(
+              {urls && Array.isArray(urls) &&
+                urls.map(
                   (url: {
                     _id: string;
                     originalUrl: string;
@@ -69,20 +66,20 @@ export default async function UrlList() {
                           </a>
                         </td>
                         <td className="delete-cell">
-                        <form action={deleteUrlAction}>
-                          <input type="hidden" name="id" value={url._id} />
-                          <button 
-                            type="submit" 
-                            className="btn-delete" 
-                            title="Delete this URL"
-                          >
-                            <NextImage 
-                              src="/deleteButton.svg" 
-                              alt="Delete"
-                              width={24}
-                              height={24}
-                              className="delete-icon"
-                            />
+                          <form action={deleteUrlAction}>
+                            <input type="hidden" name="id" value={url._id} />
+                            <button
+                              type="submit"
+                              className="btn-delete"
+                              title="Delete this URL"
+                            >
+                              <NextImage
+                                src="/deleteButton.svg"
+                                alt="Delete"
+                                width={24}
+                                height={24}
+                                className="delete-icon"
+                              />
                             </button>
                           </form>
                         </td>
