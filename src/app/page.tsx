@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { shortenUrl } from "./serverAction/shortenUrlAction";
+import ShortenForm from "./ShortenForm";
 import "./urlHomePage.css";
 
 export default function Home() {
@@ -9,18 +9,7 @@ export default function Home() {
         <div className="card">
           <h1 className="title">URL SHORTY</h1>
 
-          <form action={shortenUrl} className="url-form">
-            <input
-              type="text"
-              placeholder="Enter URL"
-              name="originalUrl"
-              className="input-field"
-            />
-
-            <button type="submit" className="btn btn-primary">
-              Shorten
-            </button>
-          </form>
+          <ShortenForm />
         </div>
 
         <div className="links-container">

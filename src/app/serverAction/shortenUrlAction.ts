@@ -16,13 +16,7 @@ export const shortenUrl = async (formData: FormData) => {
     const shortnerService = new UrlShortnerService();
     const shortUrl = await shortnerService.shortenUrl(originalUrl);
 
-    //Redis update is now handled inside the service
-    /*if (shortUrl) {
-        await redis.set(`urls/${shortUrl}`, originalUrl, "EX", 604800);
-    }
-    await shortnerService.getAllUrl();*/
-
-    console.log("Redis list is pre-warmed and ready!");
+    // console.log("Redis list is pre-warmed and ready!");
     revalidatePath('/urls');
 
     redirect('/');
