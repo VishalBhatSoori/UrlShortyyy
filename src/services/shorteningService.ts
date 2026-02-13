@@ -18,7 +18,7 @@ export class UrlShortnerService {
             shortUrl = shortId();
             url = await this.urlRepository.getUrlByShortUrl(shortUrl);
         }
-        await this.urlRepository.createUrl(originalUrl, `urls/${shortUrl}`);
+        await this.urlRepository.createUrl(originalUrl, shortUrl);
 
         // Immediate Cache Update for Redirection
         await redis.set(`urls/${shortUrl}`, originalUrl, "EX", 604800);
