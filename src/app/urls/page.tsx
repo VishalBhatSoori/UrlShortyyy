@@ -5,6 +5,8 @@ import NextImage from 'next/image';
 
 import { UrlShortnerService } from "@/services/shorteningService";
 
+export const dynamic = 'force-dynamic';
+
 async function fetchUrls() {
   const shortnerService = new UrlShortnerService();
   return await shortnerService.getAllUrl();
