@@ -2,7 +2,9 @@
   <h1>🔗 UrlShorty</h1>
 </div> 
 
-### *A blazing-fast URL shortener built with Next.js, leveraging Redis caching to provide instant redirections and a lightning-fast dashboard experience without constantly hitting the database.*
+### *A blazing-fast URL shortener built with Next.js (Server Side Rendering), leveraging Redis caching to provide instant redirections and a lightning-fast dashboard experience without constantly hitting the database.*
+
+**Project Motivation:** Built specifically to shorten long Google Form links sent by my college's placement cell and store them in a single, easily accessible dashboard and links sent by friends.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -13,7 +15,6 @@
 - [🎨 Preview](#preview)
 - [🏗 Architecture](#architecture)
 - [⚡ How Redis Makes It Blazing Fast](#how-redis-makes-it-blazing-fast)
-- [🛠 Tech Stack](#tech-stack)
 
 <a id="preview"></a>
 ## 🎨 Preview
@@ -29,6 +30,13 @@ The application follows a modern, speed-optimized architecture:
 1. **Frontend/Backend (Next.js)**: A full-stack Next.js application that handles UI rendering and API requests.
 2. **Primary Data Source (Redis)**: The ultra-fast, in-memory store where all data fetching happens. Because of its incredible read speeds, Redis serves as the primary source for serving data to users.
 3. **Persistent Storage & Backup (MongoDB)**: Operates as the permanent storage layer. It safely stores the URL mappings as a backup and is only queried when data expires or is missing from Redis (a cache miss).
+
+## 🛠 Tech Stack
+
+* **Framework:** Next.js (App Router)
+* **Language:** TypeScript
+* **Database:** MongoDB (Mongoose)
+* **Cache:** Redis (ioredis)
 
 <a id="how-redis-makes-it-blazing-fast"></a>
 ## ⚡ How Redis Makes It Blazing Fast
@@ -51,11 +59,6 @@ When a user visits the dashboard to see all their shortened URLs:
   - It instantly parses the JSON data from memory and serves the dashboard to the user without touching the MongoDB database.
   - **Smart Syncing**: When a URL is created or deleted, the application directly updates the list stored in Redis (pushing the new URL or filtering out the deleted one) and updates MongoDB in the background. This ensures that the dashboard always loads instantly from Redis while MongoDB safely keeps the persistent backup.
 
-<a id="tech-stack"></a>
-## 🛠 Tech Stack
 
-* **Framework:** Next.js (App Router)
-* **Language:** TypeScript
-* **Database:** MongoDB (Mongoose)
-* **Cache:** Redis (ioredis)
+x
 
