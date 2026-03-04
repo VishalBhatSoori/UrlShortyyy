@@ -84,18 +84,15 @@ html {
     max-width: 32rem;
 }
 
-.btn-secondary,
-.btn-secondary:visited {
+.btn-secondary {
     background-color: #513bf6;
-    color: #ffffff;
-    text-decoration: none;
+    /* Red-500 equivalent */
+    color: rgb(255, 255, 255)
 }
 
-.btn-secondary:hover,
-.btn-secondary:active {
+.btn-secondary:hover {
     background-color: #2fdc26;
-    color: #ffffff;
-    text-decoration: none;
+    /* Red-600 equivalent */
 }
 
 /* Toast Notification */
