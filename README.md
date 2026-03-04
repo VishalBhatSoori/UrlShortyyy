@@ -4,7 +4,7 @@
 
 ### *A blazing-fast URL shortener built with Next.js (Server Side Rendering), leveraging Redis caching to provide instant redirections and a lightning-fast dashboard experience without constantly hitting the database.*
 
-**Project Motivation:** Built specifically to shorten long Google Form links sent by my college's placement cell and store them in a single, easily accessible dashboard and links sent by friends.
+**Project Motivation:** Built specifically to shorten long Google Form links sent by my college's placement cell and store them in a single, easily accessible dashboard and also for linkedin or insta links sent by friends or the links that I send to myself to watch later in whatsapp.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -19,9 +19,21 @@
 <a id="preview"></a>
 ## 🎨 Preview
 
-*(Add your screenshots here)*
-- **Dashboard View**: View all shortened URLs.
-- **Url Redirection**: Instant redirection to the original URL.
+### Homepage / Dashboard
+*(Shows the interface for generating new short links and viewing existing ones)*
+![Homepage](src/assets/homepage.png)
+![Dashboard View](src/assets/dashboard.png)
+
+### Redirection Flow
+*(Demonstrates the quick lookup and instant redirection to the target URL)*
+![Redirecting...](src/assets/redirecting.png)
+![Redirected Target](src/assets/redirected.png)
+
+### Backend Storage & Caching
+*(Shows the Redis caching layer and MongoDB Atlas persistent storage)*
+![Redis Cache](src/assets/redis.png)
+![MongoDB Atlas](src/assets/mongodbatlas.png)
+
 
 <a id="architecture"></a>
 ## 🏗 Architecture 
@@ -44,12 +56,13 @@ The application follows a modern, speed-optimized architecture:
 The application relies on **Redis** as the primary source for fetching data, prioritizing its in-memory speed responses and only using MongoDB as a backup storage mechanism.
 
 ### 1. Lightning-Fast Single Link Redirection
-When a user clicks on a shortened link (e.g., `url-shorty/xyz123`), the system needs to find where that link goes.
-* **The DB Way (MongoDB)**: The server queries MongoDB, searches through the database, retrieves the original URL, and then redirects.
-* **The Redis Way (Primary)**: 
-  - The server immediately queries Redis for the `xyz123` key.
-  - Since Redis operates entirely in RAM, it retrieves the original URL in less than a millisecond (Hit) and instantly redirects the user.
-  - **Fallback**: Only if the link is not in Redis (e.g., due to expiration), it fetches the mapping from MongoDB (as a backup), redirects the user, and immediately populates Redis so subsequent reads are instant again.
+When a user clicks on a shortened link (e.g., `url-shorty/xyz123`), the system needs to find where that link goes by looking up a string. 
+
+Because **Redis operates entirely in RAM (in-memory)**, the connection overhead is practically zero, and it can retrieve the original URL in less than a millisecond (Hit) to instantly redirect the user. 
+
+If we only used **MongoDB**, the initial load and redirection would be noticeably slower because establishing a connection to a permanent database that reads from a disk carries much heavier network and processing overhead.
+
+*(Note: We only fall back to MongoDB to fetch the mapping if a link is not found in Redis, typically due to expiration. We then instantly populate Redis with it so subsequent reads are lightning fast again.)*
 
 ### 2. Instant Dashboard Loading (All Links Page)
 When a user visits the dashboard to see all their shortened URLs:
