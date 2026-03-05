@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/app/favicon.ico" alt="logo" height="150" />
+  <img src="src/app/favicon.ico" alt="logo" width="350" height="350" />
   <h1>🔗 UrlShorty</h1>
 </div> 
 
