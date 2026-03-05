@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="src/app/favicon.ico" alt="logo" height="150" />
   <h1>🔗 UrlShorty</h1>
 </div> 
 
@@ -37,6 +38,8 @@
 
 <a id="architecture"></a>
 ## 🏗 Architecture 
+
+![Architecture Diagram](src/assets/architecture.png)
 
 The application follows a modern, speed-optimized architecture:
 1. **Frontend/Backend (Next.js)**: A full-stack Next.js application that handles UI rendering and API requests.
